@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PopupWithForm from './PopupWithForm';
 
 function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading }) {
@@ -21,6 +21,11 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading }) {
     });
   }
 
+  useEffect(() => {
+    setCardName('');
+    setCardImage('');
+  }, [isOpen]);
+
   return (
     <PopupWithForm
       title="Новое место"
@@ -40,6 +45,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading }) {
         required
         className="popup__input popup__input_type_name-place"
         onChange={handleCangeCardName}
+        value={name || ''}
       />
       <span className="popup__input-error name-place-error" />
       <input
@@ -52,6 +58,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading }) {
         required
         className="popup__input popup__input_type_link-place"
         onChange={handleCangeCardImage}
+        value={link || ''}
       />
       <span className="popup__input-error link-place-error" />
     </PopupWithForm>

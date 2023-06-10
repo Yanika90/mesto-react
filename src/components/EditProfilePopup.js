@@ -13,7 +13,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading }) {
   useEffect(() => {
     setName(currentUser.name);
     setDescription(currentUser.about);
-  }, [currentUser]);
+  }, [currentUser, isOpen]);
 
   function handleCangeName(e) {
     setName(e.target.value);
@@ -52,6 +52,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading }) {
         required
         className="popup__input popup__input_type_name"
         onChange={handleCangeName}
+        value={name || ''}
       />
       <span className="popup__input-error name-error" />
       <input
@@ -64,6 +65,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading }) {
         required
         className="popup__input popup__input_type_about-yourself"
         onChange={handleCangeAbout}
+        value={description || ''}
       />
       <span className="popup__input-error about-yourself-error" />
     </PopupWithForm>
