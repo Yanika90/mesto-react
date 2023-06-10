@@ -31,15 +31,6 @@ function App() {
       });
   }, []);
 
-  function handleCardClick(card) {
-    setSelectedCard(card);
-  }
-
-  function handleCardDeleteConfirm(card) {
-    setDeletedCard(card);
-    // setIsConfirmCardDeletePopupOpen(true);
-  }
-
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
     const isLiked = card.likes.some(i => i._id === currentUser._id);
@@ -59,6 +50,7 @@ function App() {
       .deleteCard(card)
       .then(() => {
         setCards(cards => cards.filter(c => c._id !== card._id));
+        closeAllPopups();
       })
       .catch(err => {
         console.log(`При удалении карточки возникла ошибка: ${err}`);
@@ -121,10 +113,9 @@ function App() {
             onAddPlace={setIsAddPlacePopupOpen}
             onEditAvatar={setIsEditAvatarPopupOpen}
             onConfirmDelete={setIsConfirmCardDeletePopupOpen}
-            onCardClick={handleCardClick}
+            onCardClick={setSelectedCard}
             onCardLike={handleCardLike}
-            onCardDelete={handleCardDelete}
-            onDeleteClick={handleCardDeleteConfirm}
+            onCardDelete={setDeletedCard}
           />
           <Footer />
 
@@ -147,10 +138,10 @@ function App() {
 
           {/* Поп-ап удаления карточки */}
           <ConfirmCardDeletePopup
-            card={deletedCard}
             isOpen={isConfirmCardDeletePopupOpen}
             onClose={closeAllPopups}
-            onConfirm={handleCardDelete}
+            onCardDelete={handleCardDelete}
+            card={deletedCard}
           />
 
           {/* Поп-ап редактирования аватарки */}

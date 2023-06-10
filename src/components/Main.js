@@ -9,7 +9,8 @@ function Main({
   onEditAvatar,
   onCardClick,
   onCardLike,
-  onCardDelete
+  onCardDelete,
+  onConfirmDelete
 }) {
   const currentUser = useContext(CurrentUserContext);
 
@@ -54,6 +55,7 @@ function Main({
               onCardClick={onCardClick}
               onCardLike={onCardLike}
               onCardDelete={onCardDelete}
+              onConfirmDelete={onConfirmDelete}
             />
           ))}
         </section>

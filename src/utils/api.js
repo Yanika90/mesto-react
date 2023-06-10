@@ -64,8 +64,8 @@ export class Api {
   }
 
   // Удаления карточки
-  deleteCard(data) {
-    return fetch(`${this._url}/cards/${data._id}`, {
+  deleteCard(card) {
+    return fetch(`${this._url}/cards/${card._id}`, {
       method: 'DELETE',
       headers: this._headers
     }).then(this._checkResponse);
@@ -78,20 +78,6 @@ export class Api {
       headers: this._headers
     }).then(this._checkResponse);
   }
-
-  //   likeCard(cardId) {
-  //     return fetch(`${this._url}/cards/${cardId}/likes`, {
-  //       method: 'PUT',
-  //       headers: this._headers
-  //     }).then(this._checkResponse);
-  //   }
-
-  //   dislikeCard(cardId) {
-  //     return fetch(`${this._url}/cards/${cardId}/likes`, {
-  //       method: 'DELETE',
-  //       headers: this._headers
-  //     }).then(this._checkResponse);
-  //   }
 }
 
 const api = new Api({
