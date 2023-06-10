@@ -1,7 +1,7 @@
 import React from 'react';
 import PopupWithForm from './PopupWithForm';
 
-function ConfirmCardDeletePopup({ card, isOpen, onClose, onCardDelete }) {
+function ConfirmCardDeletePopup({ card, isOpen, onClose, onCardDelete, isLoading }) {
   function handleSubmit(e) {
     e.preventDefault();
     onCardDelete(card);
@@ -11,7 +11,7 @@ function ConfirmCardDeletePopup({ card, isOpen, onClose, onCardDelete }) {
     <PopupWithForm
       title="Вы уверены?"
       name="popupDeleteCard"
-      buttonText="Да"
+      buttonText={isLoading ? 'Удаление...' : 'Да'}
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}

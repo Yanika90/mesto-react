@@ -19,6 +19,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
   const [deletedCard, setDeletedCard] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     Promise.all([api.getUserInfo(), api.getPhotoCards()])
@@ -46,6 +47,7 @@ function App() {
   }
 
   function handleCardDelete(card) {
+    setIsLoading(true);
     api
       .deleteCard(card)
       .then(() => {
@@ -54,10 +56,14 @@ function App() {
       })
       .catch(err => {
         console.log(`При удалении карточки возникла ошибка: ${err}`);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }
 
   function handleUpdateUser(data) {
+    setIsLoading(true);
     api
       .setUserInfo(data)
       .then(res => {
@@ -66,10 +72,14 @@ function App() {
       })
       .catch(err => {
         console.log(`При редактировании профиля возникла ошибка: ${err}`);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }
 
   function handleUpdateAvatar(data) {
+    setIsLoading(true);
     api
       .setUserAvatar(data)
       .then(res => {
@@ -78,10 +88,14 @@ function App() {
       })
       .catch(err => {
         console.log(`При изменении аватара возникла ошибка: ${err}`);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }
 
   function handleCardAdd(data) {
+    setIsLoading(true);
     api
       .addCard(data)
       .then(newCard => {
@@ -90,6 +104,9 @@ function App() {
       })
       .catch(err => {
         console.log(`При добавлении карточки возникла ошибка: ${err}`);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }
 
@@ -124,6 +141,7 @@ function App() {
             isOpen={isEditProfilePopupOpen}
             onClose={closeAllPopups}
             onUpdateUser={handleUpdateUser}
+            isLoading={isLoading}
           />
 
           {/* Поп-ап добавления карточки */}
@@ -131,6 +149,7 @@ function App() {
             isOpen={isAddPlacePopupOpen}
             onClose={closeAllPopups}
             onAddPlace={handleCardAdd}
+            isLoading={isLoading}
           />
 
           {/* Просмотр карточки */}
@@ -142,6 +161,7 @@ function App() {
             onClose={closeAllPopups}
             onCardDelete={handleCardDelete}
             card={deletedCard}
+            isLoading={isLoading}
           />
 
           {/* Поп-ап редактирования аватарки */}
@@ -149,6 +169,7 @@ function App() {
             isOpen={isEditAvatarPopupOpen}
             onClose={closeAllPopups}
             onUpdateAvatar={handleUpdateAvatar}
+            isLoading={isLoading}
           />
         </CurrentUserContext.Provider>
       </div>
