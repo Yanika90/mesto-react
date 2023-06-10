@@ -12,7 +12,7 @@ export class Api {
       return Promise.reject(`Ошибка: ${res.status}`);
     }
   }
-  // Данные с сервера
+
   // Редактирование профиля:отправка и загрузка информации о пользователе
   getUserInfo() {
     return fetch(`${this._url}/users/me`, {
